@@ -5,10 +5,12 @@ machine:
     version: 2.7
 
 dependencies:
+  cache_directories:
+    - "~/docker"
   pre:
     - pip install behave
   override:
-    - docker build -t fedora/mysql mysql
+    - ./tests/rebuild.sh
 
 checkout:
   post:
