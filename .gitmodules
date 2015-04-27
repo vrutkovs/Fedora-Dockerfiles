@@ -1,0 +1,6 @@
+[submodule "tests/steps/common_steps"]
+	path = tests/steps/common_steps
+	url = https://github.com/vrutkovs/common-steps.git
+[submodule "tests/features/common-features"]
+	path = tests/features/common-features
+	url = https://github.com/vrutkovs/common-features.git
