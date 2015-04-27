@@ -1,0 +1,15 @@
+sudo: required
+services: docker
+language: python
+env:
+ - IMAGE="mysql"
+
+install:
+  - pip install behave ansible --upgrade
+  - pip install -U https://github.com/Containers-Testing-Framework/ctf-cli/archive/master.zip
+
+before_script:
+- cd $IMAGE
+
+script:
+- docker build -t fedora/$IMAGE . && ctf-cli run -d IMAGE=fedora/$IMAGE
