@@ -1,0 +1,22 @@
+machine:
+  services:
+    - docker
+  python:
+    version: 2.7
+
+dependencies:
+  pre:
+    - pip install behave
+  override:
+    - docker build -t fedora/mysql mysql
+
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+    - rm -rf .git  # Don't let CircleCI cache submodules
+
+test:
+  override:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - behave tests -D=IMAGE=fedora/mysql --junit --junit-directory $CIRCLE_TEST_REPORTS/junit/
