@@ -3,6 +3,7 @@ services: docker
 language: python
 env:
  - IMAGE="mysql"
+ - IMAGE="mariadb"
 
 install:
   - pip install behave ansible --upgrade
