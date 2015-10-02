@@ -13,3 +13,9 @@
 [submodule "mariadb/tests/steps/common_steps"]
 	path = mariadb/tests/steps/common_steps
 	url = https://github.com/Containers-Testing-Framework/common-steps.git
+[submodule "Django/tests/steps/common_steps"]
+	path = Django/tests/steps/common_steps
+	url = https://github.com/Containers-Testing-Framework/common-steps.git
+[submodule "Django/tests/features/common_features"]
+	path = Django/tests/features/common_features
+	url = https://github.com/Containers-Testing-Framework/common-features.git
