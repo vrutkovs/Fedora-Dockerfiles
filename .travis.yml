@@ -3,6 +3,7 @@ services: docker
 language: python
 env:
  - IMAGE="ansible"
+ - IMAGE="apache"
  - IMAGE="mysql"
  - IMAGE="mariadb"
 

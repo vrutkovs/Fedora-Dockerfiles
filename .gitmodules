@@ -19,3 +19,9 @@
 [submodule "ansible/tests/steps/common_steps"]
 	path = ansible/tests/steps/common_steps
 	url = https://github.com/Containers-Testing-Framework/common-steps.git
+[submodule "apache/tests/steps/common_steps"]
+	path = apache/tests/steps/common_steps
+	url = https://github.com/Containers-Testing-Framework/common-steps.git
+[submodule "apache/tests/features/common_features"]
+	path = apache/tests/features/common_features
+	url = https://github.com/Containers-Testing-Framework/common-features.git
