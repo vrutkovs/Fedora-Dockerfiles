@@ -6,8 +6,7 @@ env:
  - IMAGE="mariadb"
 
 install:
-  - pip install behave ansible --upgrade
-  - pip install -U https://github.com/Containers-Testing-Framework/ctf-cli/archive/master.zip
+  - pip install behave ansible ctf-cli --upgrade
 
 before_script:
 - cd $IMAGE
