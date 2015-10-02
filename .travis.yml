@@ -4,6 +4,7 @@ language: python
 env:
  - IMAGE="ansible"
  - IMAGE="apache"
+ - IMAGE="couchdb"
  - IMAGE="mysql"
  - IMAGE="mariadb"
 

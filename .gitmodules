@@ -25,3 +25,9 @@
 [submodule "apache/tests/features/common_features"]
 	path = apache/tests/features/common_features
 	url = https://github.com/Containers-Testing-Framework/common-features.git
+[submodule "couchdb/tests/steps/common_steps"]
+	path = couchdb/tests/steps/common_steps
+	url = https://github.com/Containers-Testing-Framework/common-steps.git
+[submodule "couchdb/tests/features/common_features"]
+	path = couchdb/tests/features/common_features
+	url = https://github.com/Containers-Testing-Framework/common-features.git
