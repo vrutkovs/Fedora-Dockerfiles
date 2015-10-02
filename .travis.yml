@@ -13,4 +13,6 @@ before_script:
 - cd $IMAGE
 
 script:
+# Lowercase IMAGE
+- export IMAGE=${IMAGE,,}
 - docker build -t fedora/$IMAGE . && ctf-cli run -d IMAGE=fedora/$IMAGE
