@@ -13,3 +13,9 @@
 [submodule "mariadb/tests/steps/common_steps"]
 	path = mariadb/tests/steps/common_steps
 	url = https://github.com/Containers-Testing-Framework/common-steps.git
+[submodule "ansible/tests/features/common_features"]
+	path = ansible/tests/features/common_features
+	url = https://github.com/Containers-Testing-Framework/common-features.git
+[submodule "ansible/tests/steps/common_steps"]
+	path = ansible/tests/steps/common_steps
+	url = https://github.com/Containers-Testing-Framework/common-steps.git
