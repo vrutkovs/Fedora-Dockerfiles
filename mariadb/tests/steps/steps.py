@@ -9,7 +9,7 @@ import os
 @when(u'mariadb container is started')
 def mariadb_container_is_started(context):
     # Read mariadb params from context var
-    context.container_id = 'ctf%s' % os.urandom(4)
+    context.container_id = u'ctf%s' % os.urandom(4)
     params = ' --name=%s --privileged=true' % context.container_id
     for param in context.mariadb:
         params += ' -e %s=%s' % (param, context.mariadb[param])
