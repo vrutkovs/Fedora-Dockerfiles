@@ -2,13 +2,13 @@
 from behave import when, then, given
 from time import sleep
 from common_steps import common_docker_steps, common_connection_steps
-import os
+from random import randint
 
 
 @when(u'mysql container is started')
 def mysql_container_is_started(context):
     # Read mysql params from context var
-    context.container_id = u'ctf%s' % os.urandom(4)
+    context.container_id = u'ctf%s' % randint(1, 10)
     context.execute_steps(u'* Docker container is started with params " --privileged=true --name=%s"' % context.container_id)
     sleep(10)
 

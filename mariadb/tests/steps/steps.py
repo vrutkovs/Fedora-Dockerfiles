@@ -3,13 +3,13 @@ from behave import when, then, given, step
 import subprocess
 from time import sleep
 from common_steps import common_docker_steps, common_connection_steps
-import os
+from random import randint
 
 
 @when(u'mariadb container is started')
 def mariadb_container_is_started(context):
     # Read mariadb params from context var
-    context.container_id = u'ctf%s' % os.urandom(4)
+    context.container_id = u'ctf%s' % randint(1, 10)
     params = ' --name=%s --privileged=true' % context.container_id
     for param in context.mariadb:
         params += ' -e %s=%s' % (param, context.mariadb[param])
