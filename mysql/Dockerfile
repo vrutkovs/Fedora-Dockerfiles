@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:rawhide
 MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 RUN yum -y update && yum clean all
