@@ -2,12 +2,14 @@
 from behave import when, then, given
 from time import sleep
 from common_steps import common_docker_steps, common_connection_steps
+import os
 
 
 @when(u'mysql container is started')
 def mysql_container_is_started(context):
     # Read mysql params from context var
-    context.execute_steps(u'* Docker container is started with params " --privileged=true --name=ctf"')
+    context.container_id = 'ctf%s' % os.urandom(4)
+    context.execute_steps(u'* Docker container is started with params " --privileged=true --name=%s"' % context.container_id)
     sleep(10)
 
 
@@ -28,8 +30,8 @@ def mysql_connect(context, action=False):
 
     for attempts in xrange(0, 5):
         try:
-            context.run('docker run --rm -i --volumes-from=ctf %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
-                context.image, user, password, db))
+            context.run('docker run --rm -i --volumes-from=%s %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
+                context.container_id, context.image, user, password, db))
             return
         except AssertionError:
             # If  negative part was set, then we expect a bad code
