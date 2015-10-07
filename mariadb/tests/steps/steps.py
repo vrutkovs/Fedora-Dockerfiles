@@ -3,12 +3,14 @@ from behave import when, then, given, step
 import subprocess
 from time import sleep
 from common_steps import common_docker_steps, common_connection_steps
+import os
 
 
 @when(u'mariadb container is started')
 def mariadb_container_is_started(context):
     # Read mariadb params from context var
-    params = ' --name=ctf --privileged=true'
+    context.container_id = 'ctf%s' % os.urandom(4)
+    params = ' --name=%s --privileged=true' % context.container_id
     for param in context.mariadb:
         params += ' -e %s=%s' % (param, context.mariadb[param])
     context.execute_steps(u'* Docker container is started with params "%s"' % params)
@@ -39,8 +41,8 @@ def mariadb_connect(context, action=False):
 
     for attempts in xrange(0, 5):
         try:
-            context.run('docker run -i --volumes-from=ctf %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
-                context.image, user, password, db))
+            context.run('docker run -i --volumes-from=%s %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
+                context.container_id, context.image, user, password, db))
             return
         except AssertionError:
             # If  negative part was set, then we expect a bad code
