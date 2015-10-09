@@ -33,9 +33,9 @@ def mariadb_connect(context, action=False):
         for row in context.table:
             context.mariadb[row['param']] = row['value']
 
-    user = context.mariadb['USER']
-    password = context.mariadb['PASS']
-    db = context.mariadb['NAME']
+    user = context.mariadb['MYSQL_USER']
+    password = context.mariadb['MYSQL_PASSWORD']
+    db = context.mariadb['MYSQL_DATABASE']
 
     context.execute_steps(u'* port 3306 is open')
 
