@@ -5,12 +5,22 @@ from common_steps import common_docker_steps, common_connection_steps
 from random import randint
 
 
+
 @when(u'mysql container is started')
 def mysql_container_is_started(context):
     # Read mysql params from context var
-    context.container_id = u'ctf%s' % randint(1, 10)
-    context.execute_steps(u'* Docker container is started with params " --privileged=true --name=%s"' % context.container_id)
+    params = ' --name=ctf'
+    for param in context.mysql:
+        params += ' -e %s=%s' % (param, context.mysql[param])
+    context.execute_steps(u'* Docker container is started with params "%s"' % params)
     sleep(10)
+
+
+@given(u'mysql container param "{param}" is set to "{value}"')
+def set_mysql_params(context, param, value):
+    if not hasattr(context, "mysql"):
+        context.mysql = {}
+    context.mysql[param] = value
 
 
 @then(u'mysql connection can be established')
