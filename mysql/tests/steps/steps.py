@@ -30,8 +30,8 @@ def mysql_connect(context, action=False):
 
     for attempts in xrange(0, 5):
         try:
-            context.run('docker run --rm -i --volumes-from=%s %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
-                context.container_id, context.image, user, password, db))
+            context.run('docker run --rm %s mysql -h %s -u"%s" -p"%s" -e "SELECT 1;" %s' % (
+                context.image, context.ip, user, password, db))
             return
         except AssertionError:
             # If  negative part was set, then we expect a bad code
