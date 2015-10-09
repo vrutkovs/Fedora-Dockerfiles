@@ -41,7 +41,7 @@ def mariadb_connect(context, action=False):
 
     for attempts in xrange(0, 5):
         try:
-            context.run('docker run -i --volumes-from=%s %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
+            context.run('docker run --rm -i --volumes-from=%s %s mysql -u"%s" -p"%s" -e "SELECT 1;" %s' % (
                 context.container_id, context.image, user, password, db))
             return
         except AssertionError:
