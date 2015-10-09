@@ -24,10 +24,10 @@ def set_mysql_params(context, param, value):
 
 
 @then(u'mysql connection can be established')
-@then(u'mysql connection can {action:w} be established')
+@then(u'mysql connection can {negative:w} be established')
 @then(u'mysql connection with parameters can be established')
-@then(u'mysql connection with parameters can {action:w} be established')
-def mysql_connect(context, action=False):
+@then(u'mysql connection with parameters can {negative:w} be established')
+def mysql_connect(context, negative=False):
     if context.table:
         for row in context.table:
             context.mysql[row['param']] = row['value']
@@ -36,7 +36,14 @@ def mysql_connect(context, action=False):
     password = context.mysql['MYSQL_PASSWORD']
     db = context.mysql['MYSQL_DATABASE']
 
-    context.execute_steps(u'* port 3306 is open')
+    try:
+        context.execute_steps(u'* port 3306 is open')
+    except Exception as e:
+        if negative:
+            # We're expecting the port to be closed
+            return
+        else:
+            raise e
 
     for attempts in xrange(0, 5):
         try:
@@ -46,7 +53,7 @@ def mysql_connect(context, action=False):
         except AssertionError:
             # If  negative part was set, then we expect a bad code
             # This enables steps like "can not be established"
-            if action != 'can':
+            if negative:
                 return
             sleep(5)
 

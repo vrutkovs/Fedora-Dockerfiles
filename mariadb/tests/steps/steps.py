@@ -25,10 +25,10 @@ def set_mariadb_params(context, param, value):
 
 
 @then(u'mariadb connection can be established')
-@then(u'mariadb connection can {action:w} be established')
+@then(u'mariadb connection can {negative:w} be established')
 @then(u'mariadb connection with parameters can be established')
-@then(u'mariadb connection with parameters can {action:w} be established')
-def mariadb_connect(context, action=False):
+@then(u'mariadb connection with parameters can {negative:w} be established')
+def mariadb_connect(context, negative=False):
     if context.table:
         for row in context.table:
             context.mariadb[row['param']] = row['value']
@@ -37,7 +37,14 @@ def mariadb_connect(context, action=False):
     password = context.mariadb['MYSQL_PASSWORD']
     db = context.mariadb['MYSQL_DATABASE']
 
-    context.execute_steps(u'* port 3306 is open')
+    try:
+        context.execute_steps(u'* port 3306 is open')
+    except Exception as e:
+        if negative:
+            # We're expecting the port to be closed
+            return
+        else:
+            raise e
 
     for attempts in xrange(0, 5):
         try:
@@ -47,7 +54,7 @@ def mariadb_connect(context, action=False):
         except AssertionError:
             # If  negative part was set, then we expect a bad code
             # This enables steps like "can not be established"
-            if action != 'can':
+            if negative:
                 return
             sleep(5)
 
